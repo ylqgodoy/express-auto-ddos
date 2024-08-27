@@ -111,7 +111,7 @@ async function sendDiscordWebhooks(ip) {
 app.post('/page-loaded', async (req, res) => {
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     if (typeof ip === 'string') ip = ip.split(',')[0].trim();
-    if (ip.startsWith('3') || ip.startsWith('10') || ip.startsWith('::') || ip.startsWith('191.13.1')) {
+    if (ip.startsWith('3') || ip.startsWith('10') || ip.startsWith('::') || ip.startsWith('191.13')) {
         return res.status(400).send('Invalid IP');
     }
 

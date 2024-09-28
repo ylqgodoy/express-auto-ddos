@@ -1,6 +1,6 @@
 <h1>🚀 Express NodeJS Auto DDOS</h1>
 🔖  Sobre
-<p>Este projeto é uma aplicação web construída com Express.js, que força uma comunicação com uma API que resulta em um auto DDoS para o usuário que acessa a página. A funcionalidade principal da aplicação é executar um ataque DDoS no próprio dispositivo do usuário, criando várias requisições simultâneas a partir da página que o usuário acessa, sobrecarregando o sistema ou a conexão de rede.</p>
+<p>Este projeto é uma aplicação web em Express.js que força um ataque DDoS auto-infligido no dispositivo do usuário. Ao acessar a página, ela gera múltiplas requisições simultâneas a uma API, sobrecarregando o sistema ou a conexão de rede do usuário.</p>
 
 ![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
